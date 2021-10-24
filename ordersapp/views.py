@@ -12,6 +12,9 @@ from ordersapp.models import Order, OrderItem
 from ordersapp.forms import OrderItemForm
 from django.http import JsonResponse
 from mainapp.models import Product
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
 
 
 class OrderList(ListView):
@@ -19,6 +22,10 @@ class OrderList(ListView):
 
    def get_queryset(self):
        return Order.objects.filter(user=self.request.user)
+
+   @method_decorator(login_required())
+   def dispatch(self, *args, **kwargs):
+       return super(ListView, self).dispatch(*args, **kwargs)
 
 class OrderItemsCreate(CreateView):
    model = Order
@@ -106,7 +113,8 @@ class OrderItemsUpdate(CreateView):
                if self.request.POST:
                    data['orderitems'] = OrderFormSet(self.request.POST, instance=self.object)
                else:
-                   formset = OrderFormSet(instance=self.object)
+                   queryset = self.object.orderitems.select_related()
+                   formset = OrderFormSet(instance=self.object, queryset=queryset)
                    for form in formset.forms:
                        if form.instance.pk:
                            form.initial['price'] = form.instance.product.price
