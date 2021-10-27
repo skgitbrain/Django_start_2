@@ -30,6 +30,16 @@ class Order(models.Model):
                               default=FORMING)
     is_active = models.BooleanField(verbose_name='активен', default=True)
 
+    def get_summary(self):
+        items = self.orderitems.select_related()
+        return {
+            'total_cost': sum(list(map(lambda x: x.quantity * x.product.price, \
+                                       items))),
+            'total_quantity': sum(list(map(lambda x: x.quantity, items)))
+        }
+
+
+
     class Meta:
         ordering = ('-created',)
         verbose_name = 'заказ'
