@@ -1,0 +1,21 @@
+** SIEGE 4.0.4
+** Preparing 1 concurrent users for battle.
+The server is now under siege...[error] A non-recoverable resolution error for
+
+[error] A non-recoverable resolution error for
+
+[error] A non-recoverable resolution error for
+
+
+Transactions:                      0 hits
+Availability:                   0.00 %
+Elapsed time:                   3.00 secs
+Data transferred:               0.00 MB
+Response time:                  0.00 secs
+Transaction rate:               0.00 trans/sec
+Throughput:                     0.00 MB/sec
+Concurrency:                    0.00
+Successful transactions:           0
+Failed transactions:               3
+Longest transaction:            0.00
+Shortest transaction:           0.00
